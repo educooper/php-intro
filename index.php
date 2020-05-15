@@ -1,56 +1,36 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: eduardo
- * Date: 07/06/18
- * Time: 00:29
- */
-function defineCategoriaCompetidor(string $nome, string $idade) : ?string
-{
-    $catetorias = [];
-    $categorias[] = 'infantil';
-    $categorias[] = 'adolescente';
-    $categorias[] = 'adulto';
-    if(validaNome($nome) && validaIdade($idade))
+
+session_start();
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Formulario de Inscrição</title>
+<meta author="">
+<meta description="">
+<meta viewport="width=device-width, initial-scale-1">
+</head>
+
+<body>
+<p>Formulário de Inscrição</p>
+<form action="script.php" method="post">
+<?php
+    $mensagemDeSucesso = obterMensagemSucesso();
+    if(!empty($mensagemDeSucesso))
     {
-        removerMensagemErro();
-        if($idade >= 6 && $idade <= 12)
-        {
-            for($i = 0; $i <= count($categorias); $i++)
-            {
-                if($categorias[$i] == 'infantil')
-                {
-                    setarMensagemSucesso("O nadador ".$nome. " compete na categoria " .$categorias[$i]);
-                    return null;
-                }
-            }
-        }
-        else if($idade >= 13 && $idade <= 18)
-        {
-            for($i = 0; $i <= count($categorias); $i++)
-            {
-                if($categorias[$i] == 'adolescente')
-                {
-                    setarMensagemSucesso("O nadador ".$nome. " compete na categoria " .$categorias[$i]);
-                    return null;
-                }
-            }
-        }
-        else
-        {
-            for($i = 0; $i <= count($categorias); $i++)
-            {
-                if($categorias[$i] == 'adulto')
-                {
-                    setarMensagemSucesso("O nadador ".$nome. " compete na categoria " .$categorias[$i]);
-                    return null;
-                }
-            }
-        }
+        echo $mensagemDeSucesso;
     }
-    else
+    $mensagemDeErro = obterMensagemErro();
+    if(!empty($mensagemDeErro))
     {
-        removerMensagemSucesso();
-        return obterMensagemErro();
+        echo $mensagemDeErro;
     }
-}
+?>
+<p>Seu nome: <input type="text" name="Nome" /></p>
+<p>Sua idade: <input type="text" name="Idade" /></p>
+<p><input type="submit" value="submit" value="Enviar dados do competidor"/></p>
+</form>
+</body>
+</html>
